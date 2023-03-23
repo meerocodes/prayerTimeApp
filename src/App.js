@@ -1,11 +1,14 @@
 import './App.css';
-import PrayerInfo from './component/PrayerInfo';
+import UserSearch from './component/UserSearch';
 import axios from 'axios';
+import Header from './component/Header';
 
 function App() {
   return (
     <div className="App">
-      <PrayerInfo />
+      <Header />
+      <UserSearch />
+
     </div>
   );
 }
