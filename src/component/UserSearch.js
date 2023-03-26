@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Form from "./Form";
+import Display from "./Display";
 
 const UserSearch = () => {
 
     // inititlaize state to rep the data returning from the API
-    const [prayer, setPrayer] = useState ({});
+    const [prayer, setPrayer] = useState ([]);
+
+    const[submitted, setSubmitted] = useState(false)
 
     // 1A. initialize state to represent API request error
     // if the API does NOT return data, update state to true!
@@ -15,7 +18,12 @@ const UserSearch = () => {
     const [ cityInput, setCityInput ] = useState("");
     const [ countryInput, setCountryInput ] = useState("");
 
+    const [ selectedValue, setSelectedValue] = useState('disabled')
 
+    const handleSelectChange =(e) => {
+        const value = parseInt(e.target.value);
+        setSelectedValue(value);
+    }
 
 
     // 2. define a submit event handler which will be passed down via props to the Form component
@@ -24,17 +32,26 @@ const UserSearch = () => {
             // prevent the form submission from refreshing the page
             e.preventDefault();
             // call the function which will fetch data from the API
+            setSubmitted(!submitted)
 
         }
 
         const handleChange = (e) => {
 
             if (e.target.value === ''){
-                setCityInput ('');
+                setPrayer ({});
             }
             setCityInput(e.target.value)
         }
 
+        const handleChangeCountry = (e) => {
+
+            if (e.target.value === ''){
+                setCountryInput ('');
+            }
+            setCountryInput(e.target.value)
+        }
+    
 
 
 
@@ -45,28 +62,46 @@ const UserSearch = () => {
         axios({
             url: 'http://api.aladhan.com/v1/timingsByCity/:date',
             params: {
-                city:'Toronto',
-                country: 'Canada',
-                method: 7,
+                city: cityInput,
+                country: countryInput,
+                method: selectedValue,
             }
     
         }).then((apiData) => {
             console.log(apiData.data.data.timings)
 
-            setPrayer(apiData.data.timings)
+            setPrayer(apiData.data.data.timings)
              // use the state updater function to update the form error state to false
              setApiError(false);
         })
+        .catch(() =>{
+            // if an error is 'caught' (AKA if the API call results in an error), we are going to update the apiError state to true
+            setApiError(true);
 
-    })
+            setPrayer("");
+        })
+
+       
+
+    },[submitted])
     return(
-        <>
+       
             <main className="wrapper">
                 <Form 
                 handleChange ={handleChange}
-                handleSubmit={handleSubmit}/>
+                handleChangeCountry= {handleChangeCountry}
+                handleSubmit={handleSubmit}
+                handleSelectChange={handleSelectChange}
+                />
+                <Display prayerEntries={Object.entries(prayer)} />
+
+
+        
             </main>
-        </>
+        
+       
+       
+
     )
 }
 
