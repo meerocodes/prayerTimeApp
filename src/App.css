@@ -102,6 +102,10 @@ main ul {
     width: 90%;
   }
 }
+/* FIREBASE GOOGLE AUTH */
+.App h2  {
+  color: #114500;
+}
 
 /* QIBLA COMPASS */
 
