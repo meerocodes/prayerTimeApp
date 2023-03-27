@@ -60,7 +60,7 @@ const UserSearch = () => {
     useEffect( () => {
 
         axios({
-            url: 'http://api.aladhan.com/v1/timingsByCity/:date',
+            url: 'https://api.aladhan.com/v1/timingsByCity/:date',
             params: {
                 city: cityInput,
                 country: countryInput,
