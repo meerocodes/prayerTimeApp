@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Qibla } from 'qibla';
+import axios from "axios";
 
-const QiblaCompass = () => {
-  const [direction, setDirection] = useState(0);
+const Qibla = () => {
 
-  useEffect(() => {
-    const handleOrientationChange = event => {
-      const kaabaDirection = Qibla(event.alpha, event.beta, event.gamma);
-      setDirection(kaabaDirection);
-    };
-    window.addEventListener('deviceorientation', handleOrientationChange);
-    return () => window.removeEventListener('deviceorientation', handleOrientationChange);
-  }, []);
 
-  const compassStyle = {
-    transform: `rotate(${direction}deg)`,
-  };
-
-  return (
-    <div className="compass">
-      <div className="needle" style={compassStyle}></div>
-    </div>
-  );
+const options = {
+  method: 'GET',
+  url: 'https://qibla-direction.p.rapidapi.com/',
+  params: {
+    latitude: '33.8366', 
+    longitude: '117.9143'},
+  headers: {
+    'X-RapidAPI-Key': 'f40ec548d8msh3a691818e788c62p10046djsn600084175838',
+    'X-RapidAPI-Host': 'qibla-direction.p.rapidapi.com'
+  }
 };
 
-export default QiblaCompass;
+axios.request(options).then(function (response) {
+	console.log(response.data);
+}).catch(function (error) {
+	console.error(error);
+});
 
+}
+
+export default Qibla;

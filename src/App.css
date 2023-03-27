@@ -52,18 +52,17 @@ select{
 main ul {
   background-color: #fff5c2;
   color: #114500;
+  margin-top: 50px;
 }
 /* ------- */
 .App {
   text-align: center;
-  height: 50vh;
+  height: 100vh;
+  background-color: #fff5c2;
   line-height: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -105,23 +104,6 @@ main ul {
 }
 
 /* QIBLA COMPASS */
-.compass {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 5px solid #333;
-  position: relative;
-  margin: 20px auto;
-}
 
-.needle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 20px solid #f00;
-}
+
+
