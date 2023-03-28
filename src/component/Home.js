@@ -1,10 +1,11 @@
 import Header from "./Header"
 import UserSearch from "./UserSearch"
+import { AuthContextProvider } from "./AuthContext"
 
 const Home = ()  => {
 return(
         <>
-            <h2>Salam, {localStorage.getItem("name")}</h2>
+            <h2>Hey, {localStorage.getItem("name")}</h2>
 
             <Header />
 
