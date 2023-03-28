@@ -1,33 +1,45 @@
-import { useContext, createContext } from "react";
-import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { useContext, createContext, useEffect, useState } from "react";
+import { 
+    GoogleAuthProvider, 
+    signInWithPopup, 
+    signInWithRedirect, 
+    signOut, 
+    onAuthStateChanged
+} from "firebase/auth";
+import { auth } from "./FirebaseConfig";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
+    const [user, setUser] = useState({});
+    
+    const googleSignIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider);
+    }
+
+    const logOut = () => {
+        signOut(auth)
+    }
+    
+    useEffect (() => {
+    const unsubscribe = onAuthStateChanged(auth,(currentUser) => {
+        setUser(currentUser);
+
+    });
+    return () => {
+        unsubscribe();
+    };
+    },[]);
+    
+
     return(
-        <AuthContext.Provider value={{}}>
+        <AuthContext.Provider value={{googleSignIn, logOut, user}}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
 
-export const UserAuth =() => {
-    return useContext(AuthContext)
-}
-
-
-
-
-const provider = new GoogleAuthProvider()
-
-export const signInWithGoogle = () => {
-    signInWithPopup (auth, provider)
-    .then((result) =>{
-        const name = result.user.displayName
-
-        localStorage.setItem("name", name)
-        
-    }).catch((error) =>{
-        console.log(error)
-    });
+};
+export const UserAuth = () => {
+    return useContext(AuthContext);
 };

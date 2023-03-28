@@ -86,18 +86,20 @@ const UserSearch = () => {
     },[submitted])
     return(
        
-            <main className="wrapper">
+        <main className="main">
+            
                 <Form 
                 handleChange ={handleChange}
                 handleChangeCountry= {handleChangeCountry}
                 handleSubmit={handleSubmit}
                 handleSelectChange={handleSelectChange}
                 />
+            <div className="wrapper">
                 <Display prayerEntries={Object.entries(prayer)} />
 
 
-        
-            </main>
+            </div>
+        </main>
         
        
        
