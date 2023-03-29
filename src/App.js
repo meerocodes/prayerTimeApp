@@ -21,8 +21,11 @@ function App() {
       <Routes>
         <Route path='/' element ={<SignIn />}/>
         <Route path='/signup' element ={<SignUp />}/>
-        <Route path='/home' element ={
-        <ProtectedRoute><Home /></ProtectedRoute>
+        <Route path='/home' 
+        element ={
+        <ProtectedRoute>
+          <Home />
+          </ProtectedRoute>
         }/>
       </Routes>
       <Footer/>
