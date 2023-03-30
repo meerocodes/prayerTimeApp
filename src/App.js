@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       
-      <AuthContextProvider>
+    <AuthContextProvider>
       <Routes>
         <Route path='/' element ={<SignIn />}/>
         <Route path='/signup' element ={<SignUp />}/>
@@ -24,7 +24,7 @@ function App() {
         element ={
         <ProtectedRoute>
           <Home />
-          </ProtectedRoute>
+        </ProtectedRoute>
         }/>
       </Routes>
       <Footer/>

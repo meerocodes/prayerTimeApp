@@ -44,3 +44,5 @@ export const AuthContextProvider = ({ children }) => {
 export const UserAuth = () => {
   return useContext(UserContext);
 };
+
+// Made with the help of Maksim Ivanov, Web Dev Simplified, Code commerce & pedro tech & firebase documenation
