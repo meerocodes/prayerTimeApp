@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import UserSearch from './component/UserSearch';
+import Header from './component/Header';
+import Qibla from './component/Qibla';
+import SignIn from './component/SignIn';
+import SignUp from './component/SignUp';
+import { AuthContextProvider } from './component/context/AuthContext';
+import { Link, Route, Routes } from 'react-router-dom';
+import { Auth } from 'firebase/auth';
+import Home from './component/Home';
+import Footer from './component/Footer';
+import ProtectedRoute from './component/ProtectedRoute';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <AuthContextProvider>
+      <Routes>
+        <Route path='/' element ={<SignIn />}/>
+        <Route path='/signup' element ={<SignUp />}/>
+        <Route path='/home' 
+        element ={
+        <ProtectedRoute>
+          <Home />
+          </ProtectedRoute>
+        }/>
+      </Routes>
+      <Footer/>
+
+    </AuthContextProvider>
+    
     </div>
   );
 }
