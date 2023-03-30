@@ -8,7 +8,6 @@ import { AuthContextProvider } from './component/context/AuthContext';
 import { Link, Route, Routes } from 'react-router-dom';
 import { Auth } from 'firebase/auth';
 import Home from './component/Home';
-import Navbar from './component/Navbar';
 import Footer from './component/Footer';
 import ProtectedRoute from './component/ProtectedRoute';
 
@@ -16,7 +15,7 @@ import ProtectedRoute from './component/ProtectedRoute';
 function App() {
   return (
     <div className="App">
-      <Navbar/>
+      
       <AuthContextProvider>
       <Routes>
         <Route path='/' element ={<SignIn />}/>

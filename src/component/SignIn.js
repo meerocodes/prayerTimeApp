@@ -7,6 +7,7 @@ import { UserAuth } from './context/AuthContext';
 import Home from './Home';
 import SignUp from './SignUp';
 import { AuthContextProvider } from './context/AuthContextGoogle';
+import signInWithGoogle from './context/AuthContextGoogle';
 
 
 // Email and Password SignIn
@@ -25,7 +26,7 @@ const SignIn = () => {
                   navigate('/home')
             }catch(e) {
                   setError(e.message)
-                  console.log(e.message)
+                  alert('Failed to log in, please try again')
             }
       };
 
@@ -38,7 +39,6 @@ const SignIn = () => {
             try{
                   await  googleSignIn();
             }catch(error){
-                  console.log('error');
             }
       };
 
@@ -66,7 +66,7 @@ const SignIn = () => {
               <div className="separator">or</div>
               <div className="google-button-container">
                 <Link to='/home' element={<Home/>}>
-                  <GoogleButton onClick={handleGoogleSignIn} />
+                  <GoogleButton onClick={signInWithGoogle} />
                 </Link>
               </div>
               <div className="signup-link-container">

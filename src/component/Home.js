@@ -11,15 +11,18 @@ const Home = ()  => {
         try {
             await logout()
             navigate('/');
-            console.log('you are logged out')
 
         }catch (e) {
-            console.log(e.message)
+            alert('Failed to logout, please try again')
         }
     }
 return(
         <>
-            <h2>Hey, {user ? user.email : localStorage.getItem("name")}</h2> <button onClick={handleLogout}>logout</button>
+            <nav>
+                <div className="wrapper">
+                    <h2>Salam, {user ? localStorage.getItem("name") : user.email}</h2> <button onClick={handleLogout}>logout</button>
+                </div>
+            </nav>
 
             <Header />
 

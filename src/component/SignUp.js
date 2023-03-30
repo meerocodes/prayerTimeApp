@@ -18,7 +18,7 @@ const SignUp = () => {
       navigate('/home')
     } catch (e) {
       setError(e.message);
-      console.log(e.message);
+      alert("please try another email address");
     }
   };
 

@@ -9,7 +9,7 @@ const UserSearch = () => {
     // inititlaize state to rep the data returning from the API
     const [prayer, setPrayer] = useState ([]);
 
-    const[submitted, setSubmitted] = useState(false)
+    const[submitted, setSubmitted] = useState(false);
 
     // 1A. initialize state to represent API request error
     // if the API does NOT return data, update state to true!
@@ -34,6 +34,27 @@ const UserSearch = () => {
             // call the function which will fetch data from the API
             setSubmitted(!submitted)
 
+            axios({
+                url: 'https://api.aladhan.com/v1/timingsByCity/:date',
+                params: {
+                    city: cityInput,
+                    country: countryInput,
+                    method: selectedValue,
+                }
+        
+            }).then((apiData) => {
+    
+                setPrayer(apiData.data.data.timings)
+                 // use the state updater function to update the form error state to false
+                 setApiError(false);
+            })
+            .catch(() =>{
+                // if an error is 'caught' (AKA if the API call results in an error), we are going to update the apiError state to true
+                setApiError(true);
+                alert('please enter a valid city/country')
+                setPrayer("");
+            })
+
         }
 
         const handleChange = (e) => {
@@ -57,33 +78,7 @@ const UserSearch = () => {
 
 
 
-    useEffect( () => {
-
-        axios({
-            url: 'https://api.aladhan.com/v1/timingsByCity/:date',
-            params: {
-                city: cityInput,
-                country: countryInput,
-                method: selectedValue,
-            }
-    
-        }).then((apiData) => {
-            console.log(apiData.data.data.timings)
-
-            setPrayer(apiData.data.data.timings)
-             // use the state updater function to update the form error state to false
-             setApiError(false);
-        })
-        .catch(() =>{
-            // if an error is 'caught' (AKA if the API call results in an error), we are going to update the apiError state to true
-            setApiError(true);
-
-            setPrayer("");
-        })
-
-       
-
-    },[submitted])
+  
     return(
        
         <main className="main">
